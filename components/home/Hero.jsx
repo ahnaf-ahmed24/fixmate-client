@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Search, ShieldCheck, Timer, Wrench } from "lucide-react";
+import Image from "next/image";
 
 
 export default function Hero() {
@@ -69,7 +70,8 @@ export default function Hero() {
         <div className="relative">
           <div className="absolute -inset-6 bg-gradient-to-tr from-primary/15 via-transparent to-secondary/15 rounded-[2.5rem] blur-2xl" aria-hidden="true" />
           <div className="relative rounded-[2rem] border border-base-300 shadow-2xl overflow-hidden bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20">
-            <img
+          
+            <Image
               src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80"
               alt="Technician repairing a device"
               className="w-full h-[300px] md:h-[420px] object-cover"
