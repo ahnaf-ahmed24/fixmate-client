@@ -4,13 +4,14 @@ import { CheckCircle2, CircleDashed, XCircle } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
 
 
-const PIPELINE = ["requested", "accepted", "in-progress", "completed"];
+const PIPELINE = ["requested", "accepted", "in-progress", "completed", "paid"];
 
 const DOT = {
   requested: "bg-blue-500",
   accepted: "bg-indigo-500",
   "in-progress": "bg-amber-500",
   completed: "bg-emerald-500",
+  paid: "bg-cyan-500",
   rejected: "bg-rose-500",
   cancelled: "bg-slate-400",
 };
@@ -55,6 +56,7 @@ function label(s) {
       accepted: "Accepted",
       "in-progress": "In Progress",
       completed: "Completed",
+      paid: "Paid",
       rejected: "Rejected",
       cancelled: "Cancelled",
     }[s] || s

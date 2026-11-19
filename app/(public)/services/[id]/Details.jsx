@@ -68,6 +68,8 @@ export default function ServiceDetails({ id }) {
               <Image
                 src={service.image}
                 alt={service.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, calc(100vw - 440px)"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
@@ -127,6 +129,8 @@ export default function ServiceDetails({ id }) {
                     <Image
                       src={service.technician.image}
                       alt={service.technician.name}
+                      fill
+                      sizes="64px"
                       className="relative w-full h-full object-cover"
                       onError={(e) => (e.currentTarget.style.display = "none")}
                     />

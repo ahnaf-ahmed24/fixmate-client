@@ -36,6 +36,7 @@ const STATUS_COLORS = {
   accepted: "#6366f1",
   "in-progress": "#f59e0b",
   completed: "#10b981",
+  paid: "#06b6d4",
   rejected: "#f43f5e",
   cancelled: "#94a3b8",
 };
@@ -62,6 +63,8 @@ function CustomerOverview() {
     .map((status) => ({ status: STATUS_LABELS[status], count: bookings.filter((b) => b.status === status).length }))
     .filter((d) => d.count > 0);
 
+  const duePayment = bookings.filter((b) => b.status === "completed" && b.paymentStatus !== "paid");
+
   return (
     <RoleGate role="customer">
       <PageHeader
@@ -74,6 +77,24 @@ function CustomerOverview() {
         }
       />
 
+
+      {!loading && duePayment.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 mb-6">
+          <span className="w-9 h-9 rounded-lg bg-primary/10 text-primary grid place-items-center shrink-0">
+            <Wallet className="w-5 h-5" />
+          </span>
+          <p className="text-sm flex-1 min-w-48">
+            <span className="font-semibold">
+              {duePayment.length} completed {duePayment.length === 1 ? "job is" : "jobs are"} waiting
+              for payment.
+            </span>{" "}
+            <span className="text-base-content/60">Pay securely with Stripe to get your receipt.</span>
+          </p>
+          <Link href="/dashboard/customer/payments" className="btn btn-primary btn-sm rounded-lg font-semibold">
+            Pay now
+          </Link>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         <StatsCard icon={ClipboardList} label="Total requests" value={loading ? "—" : stats?.totalRequests ?? 0} tone="primary" href="/dashboard/customer/bookings" />
@@ -114,6 +135,8 @@ function CustomerOverview() {
                     <Image
                       src={b.serviceImage}
                       alt=""
+                      width={44}
+                      height={44}
                       className="w-11 h-11 rounded-lg object-cover bg-base-200"
                       onError={(e) => (e.currentTarget.style.visibility = "hidden")}
                     />

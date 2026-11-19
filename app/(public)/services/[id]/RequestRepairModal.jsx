@@ -83,6 +83,8 @@ export default function RequestRepairModal({ open, onClose, service }) {
             <Image
               src={service.image}
               alt=""
+              width={56}
+              height={56}
               className="w-14 h-14 rounded-lg object-cover bg-base-300"
               onError={(e) => (e.currentTarget.style.display = "none")}
             />

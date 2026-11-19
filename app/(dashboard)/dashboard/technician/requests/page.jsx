@@ -70,7 +70,7 @@ function Inner() {
   }
 
   const filtered = filter === "all" ? bookings : bookings.filter((b) => b.status === filter);
-  const tabs = ["all", "requested", "accepted", "in-progress", "completed", "rejected", "cancelled"];
+  const tabs = ["all", "requested", "accepted", "in-progress", "completed", "paid", "rejected", "cancelled"];
 
   return (
     <>
@@ -151,6 +151,8 @@ function RequestCard({ booking: b, busy, onAccept, onReject, onStart, onComplete
           <Image
             src={b.serviceImage}
             alt={b.serviceTitle}
+            width={80}
+            height={80}
             className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover bg-base-200 shrink-0"
             onError={(e) => {
               e.currentTarget.style.visibility = "hidden";
@@ -174,7 +176,7 @@ function RequestCard({ booking: b, busy, onAccept, onReject, onStart, onComplete
           </div>
           <div className="text-right shrink-0">
             <p className="text-[11px] uppercase tracking-wide text-base-content/45 font-semibold">
-              {b.status === "completed" ? "Final amount" : "Base price"}
+              {b.status === "completed" || b.status === "paid" ? "Final amount" : "Base price"}
             </p>
             <p className="text-2xl font-extrabold text-primary">{formatPrice(b.finalAmount)}</p>
           </div>

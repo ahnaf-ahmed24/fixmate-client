@@ -124,7 +124,7 @@ function Inner() {
                           <div className="flex items-center gap-3">
                             <span className="w-9 h-9 rounded-full overflow-hidden bg-primary/10 text-primary grid place-items-center font-bold text-sm shrink-0">
                               {u.image ? (
-                                <Image src={u.image} alt="" className="w-full h-full object-cover" />
+                                <Image src={u.image} alt="" width={36} height={36} className="w-full h-full object-cover" />
                               ) : (
                                 (u.name || "?")[0].toUpperCase()
                               )}

@@ -8,6 +8,7 @@ import { CATEGORIES, CONTACT } from "@/lib/constants";
 const QUICK_LINKS = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Browse Services" },
+  { href: "/payment", label: "Payments" },
   { href: "/about", label: "About Us" },
   { href: "/sign-up", label: "Become a Customer" },
 ];

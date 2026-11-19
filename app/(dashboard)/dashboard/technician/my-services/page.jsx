@@ -130,6 +130,8 @@ function ServiceRow({ service: s, onEdit, onDelete, onToggle }) {
         <Image
           src={s.image}
           alt={s.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 66vw"
           loading="lazy"
           className={`w-full h-full object-cover ${!s.isAvailable ? "opacity-60" : ""}`}
           onError={(e) => {

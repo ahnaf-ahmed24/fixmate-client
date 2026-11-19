@@ -12,7 +12,7 @@ import EmptyState from "@/components/ui/EmptyState";
 import { api } from "@/lib/api";
 import { formatDate, formatPrice } from "@/lib/utils";
 
-const TABS = ["all", "requested", "accepted", "in-progress", "completed", "rejected", "cancelled"];
+const TABS = ["all", "requested", "accepted", "in-progress", "completed", "paid", "rejected", "cancelled"];
 
 
 export default function AdminBookingsPage() {

@@ -165,7 +165,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-3 mb-4">
               <span className="w-14 h-14 rounded-2xl overflow-hidden bg-primary/10 text-primary grid place-items-center text-xl font-extrabold shrink-0">
                 {form.image ? (
-                  <Image src={form.image} alt="" className="w-full h-full object-cover" />
+                  <Image src={form.image} alt="" width={56} height={56} className="w-full h-full object-cover" />
                 ) : (
                   (user.name || "?")[0].toUpperCase()
                 )}

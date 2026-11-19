@@ -102,6 +102,8 @@ function Inner() {
                 <Image
                   src={s.image}
                   alt={s.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   loading="lazy"
                   className="w-full h-full object-cover"
                   onError={(e) => {

@@ -59,7 +59,7 @@ function TechnicianOverview() {
   const incoming = bookings.filter((b) => b.status === "requested");
   const active = bookings.filter((b) => ["accepted", "in-progress"].includes(b.status));
 
-  const chartData = ["requested", "accepted", "in-progress", "completed"].map((status) => ({
+  const chartData = ["requested", "accepted", "in-progress", "completed", "paid"].map((status) => ({
     status: status.replace("-", " "),
     count: bookings.filter((b) => b.status === status).length,
   }));
@@ -110,6 +110,8 @@ function TechnicianOverview() {
                     <Image
                       src={b.serviceImage}
                       alt=""
+                      width={44}
+                      height={44}
                       className="w-11 h-11 rounded-lg object-cover bg-base-200"
                       onError={(e) => (e.currentTarget.style.visibility = "hidden")}
                     />

@@ -81,7 +81,7 @@ function Inner() {
   }
 
   const filtered = filter === "all" ? bookings : bookings.filter((b) => b.status === filter);
-  const tabs = ["all", "requested", "accepted", "in-progress", "completed", "cancelled"];
+  const tabs = ["all", "requested", "accepted", "in-progress", "completed", "paid", "cancelled"];
 
   return (
     <>
@@ -166,6 +166,8 @@ function BookingCard({ booking: b, onCancel, onPay, paying }) {
           <Image
             src={b.serviceImage}
             alt={b.serviceTitle}
+            width={80}
+            height={80}
             className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover bg-base-200 shrink-0"
             onError={(e) => {
               e.currentTarget.style.visibility = "hidden";
@@ -191,7 +193,7 @@ function BookingCard({ booking: b, onCancel, onPay, paying }) {
 
           <div className="text-right shrink-0">
             <p className="text-[11px] uppercase tracking-wide text-base-content/45 font-semibold">
-              {b.status === "completed" ? "Final amount" : "Base price"}
+              {b.status === "completed" || b.status === "paid" ? "Final amount" : "Base price"}
             </p>
             <p className="text-2xl font-extrabold text-primary">{formatPrice(b.finalAmount)}</p>
           </div>
@@ -220,7 +222,7 @@ function BookingCard({ booking: b, onCancel, onPay, paying }) {
               Pay now
             </button>
           )}
-          {b.status === "completed" && b.paymentStatus === "paid" && (
+          {b.paymentStatus === "paid" && (
             <Link href="/dashboard/customer/payments" className="btn btn-success btn-outline btn-sm rounded-lg font-semibold">
               <ReceiptText className="w-4 h-4" /> Paid — view receipt
             </Link>

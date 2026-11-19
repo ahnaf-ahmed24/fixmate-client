@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { CheckCircle2, CircleAlert, Home, ReceiptText } from "lucide-react";
 import { api } from "@/lib/api";
 import { formatDateTime, formatPrice } from "@/lib/utils";
 import { useAuth } from "@/components/providers/AuthProvider";
+
+// Stripe can still report a just-completed session as "unpaid" for a moment
+// after the redirect, so re-check a few times before declaring failure.
+const MAX_VERIFY_ATTEMPTS = 6;
+const VERIFY_RETRY_DELAY = 1500;
 
 function SuccessContent() {
   const params = useSearchParams();
@@ -15,41 +20,55 @@ function SuccessContent() {
   const [payment, setPayment] = useState(null);
   const [state, setState] = useState("verifying"); 
   const [message, setMessage] = useState("");
-  const ran = useRef(false);
 
   useEffect(() => {
-
     if (loading) return;
-    if (ran.current) return;
-    ran.current = true;
+
+    if (!sessionId) {
+      setState("error");
+      setMessage("Missing Stripe session id in the URL.");
+      return;
+    }
+    if (!user) {
+      setState("error");
+      setMessage("You must be signed in as the paying customer to verify this payment.");
+      return;
+    }
+
+    let cancelled = false;
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
     (async () => {
-      if (!sessionId) {
-        setState("error");
-        setMessage("Missing Stripe session id in the URL.");
-        return;
-      }
-      if (!user) {
-        setState("error");
-        setMessage("You must be signed in as the paying customer to verify this payment.");
-        return;
-      }
-      const res = await api(`/api/payments/verify?session_id=${encodeURIComponent(sessionId)}`);
-      if (res.ok) {
-        if (res.data?.paid) {
-          setPayment(res.data.data);
-          setState("ok");
-        } else {
+      for (let attempt = 1; attempt <= MAX_VERIFY_ATTEMPTS; attempt++) {
+        const res = await api(`/api/payments/verify?session_id=${encodeURIComponent(sessionId)}`);
+        if (cancelled) return;
+
+        if (res.ok) {
+          if (res.data?.paid) {
+            setPayment(res.data.data);
+            setState("ok");
+            return;
+          }
+          // Stripe hasn't caught up yet — give it a moment and ask again.
+          if (attempt < MAX_VERIFY_ATTEMPTS) {
+            await wait(VERIFY_RETRY_DELAY);
+            if (cancelled) return;
+            continue;
+          }
           setState("unpaid");
           setMessage(
             `Stripe reports this payment as “${res.data?.status || "pending"}”. Refresh after your bank confirms.`
           );
+          return;
         }
-      } else {
+
         setState("error");
         setMessage(res.message || "Verification failed");
+        return;
       }
     })();
+
+    return () => { cancelled = true; };
   }, [loading, user, sessionId]);
 
   return (
