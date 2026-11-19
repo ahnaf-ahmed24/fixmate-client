@@ -92,7 +92,7 @@ const BASE = "http://localhost:3000";
       { timeout: 45000 }
     );
   } catch {}
-  await new Promise((r) => setTimeout(r, 5000));
+  await new Promise((r) => setTimeout(r, 12000));
   landed = page.url();
   console.log("\nlanded:", landed.slice(0, 130));
 
