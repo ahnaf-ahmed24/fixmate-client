@@ -20,7 +20,8 @@ export default function ServiceCard({ service }) {
         <Image
           src={service.image}
           alt={service.title}
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           onError={handleImgError}
           className="w-full h-full object-cover"
         />

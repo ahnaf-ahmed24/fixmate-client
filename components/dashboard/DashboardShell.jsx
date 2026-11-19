@@ -31,7 +31,7 @@ export default function DashboardShell({ children }) {
 
   return (
     <Suspense fallback={<LoadingScreen />}>
-      <ShellInner user={user} />
+      <ShellInner user={user}>{children}</ShellInner>
     </Suspense>
   );
 }
@@ -50,9 +50,10 @@ function LoadingScreen() {
 }
 
 
-function ShellInner({ user }) {
+function ShellInner({ user, children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { signOut } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 

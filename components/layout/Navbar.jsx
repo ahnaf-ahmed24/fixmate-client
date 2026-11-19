@@ -111,7 +111,13 @@ export default function Navbar() {
               >
                 <div className="w-9 rounded-full ring-2 ring-primary/40 overflow-hidden bg-primary text-primary-content grid place-items-center">
                   {user.image ? (
-                    <Image src={user.image} alt={user.name} className="w-full h-full object-cover" />
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      width={36}
+                      height={36}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
                     <Initials name={user.name} />
                   )}

@@ -74,6 +74,8 @@ export default function Hero() {
             <Image
               src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80"
               alt="Technician repairing a device"
+              width={1200}
+              height={800}
               className="w-full h-[300px] md:h-[420px] object-cover"
               onError={(e) => (e.currentTarget.style.display = "none")}
             />

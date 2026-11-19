@@ -1,29 +1,136 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
-};
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "daisyui" {
+  themes: fixmate --default, fixmate-dark --prefersdark;
 }
+
+
+@plugin "daisyui/theme" {
+  name: "fixmate";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #f2f5fa;
+  --color-base-300: #dbe3f0;
+  --color-base-content: #101b33; /* Deep Navy */
+  --color-primary: #e14434; /* Coral Red */
+  --color-primary-content: #ffffff;
+  --color-secondary: #1d4e89; /* Deep Navy family — ocean blue */
+  --color-secondary-content: #ffffff;
+  --color-accent: #f5b400; /* Sunshine Yellow */
+  --color-accent-content: #16233f; /* Deep Navy */
+  --color-neutral: #101b33; /* Deep Navy */
+  --color-neutral-content: #f2f5fa;
+  --color-info: #1d4e89;
+  --color-info-content: #ffffff;
+  --color-success: #15803d;
+  --color-success-content: #ffffff;
+  --color-warning: #c28300; 
+  --color-warning-content: #16233f;
+  --color-error: #c1123a;
+  --color-error-content: #ffffff;
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+
+@plugin "daisyui/theme" {
+  name: "fixmate-dark";
+  color-scheme: dark;
+  --color-base-100: #0d1b33; 
+  --color-base-200: #14243f;
+  --color-base-300: #1f3457;
+  --color-base-content: #e7edf9;
+  --color-primary: #e14434; 
+  --color-primary-content: #ffffff;
+  --color-secondary: #3572d8;
+  --color-secondary-content: #ffffff;
+  --color-accent: #ffc93c; 
+  --color-accent-content: #0d1b33;
+  --color-neutral: #1f3457;
+  --color-neutral-content: #e7edf9;
+  --color-info: #5b9be0;
+  --color-info-content: #08182f;
+  --color-success: #34d399;
+  --color-success-content: #062f1d;
+  --color-warning: #ffc93c;
+  --color-warning-content: #0d1b33;
+  --color-error: #fb7185;
+  --color-error-content: #4c0519;
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+
+@custom-variant dark (&:where([data-theme=fixmate-dark], [data-theme=fixmate-dark] *));
+
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
+}
+
+
+[data-theme],
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+
+
+@utility container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 1.5rem;
+  }
+}
+
+
+@utility clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@utility clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+.select::picker(select) {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
 }
