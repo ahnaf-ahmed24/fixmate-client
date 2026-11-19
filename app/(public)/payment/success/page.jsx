@@ -44,8 +44,10 @@ function SuccessContent() {
         if (cancelled) return;
 
         if (res.ok) {
-          if (res.data?.paid) {
-            setPayment(res.data.data);
+          // api() unwraps body.data as res.data, so read the envelope (paid/status) from res.raw.
+          const body = res.raw || {};
+          if (body.paid) {
+            setPayment(body.data);
             setState("ok");
             return;
           }
@@ -57,7 +59,7 @@ function SuccessContent() {
           }
           setState("unpaid");
           setMessage(
-            `Stripe reports this payment as “${res.data?.status || "pending"}”. Refresh after your bank confirms.`
+            `Stripe reports this payment as “${body.status || "pending"}”. Refresh after your bank confirms.`
           );
           return;
         }
