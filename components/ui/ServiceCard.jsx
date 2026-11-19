@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MapPin, UserRound } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import Image from "next/image";
 
 
 function handleImgError(e) {
@@ -16,7 +17,7 @@ export default function ServiceCard({ service }) {
   return (
     <div className="card bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 h-full flex flex-col">
       <figure className="relative h-44 overflow-hidden rounded-t-[1rem] bg-base-200">
-        <img
+        <Image
           src={service.image}
           alt={service.title}
           loading="lazy"
