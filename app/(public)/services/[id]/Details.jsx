@@ -69,6 +69,7 @@ export default function ServiceDetails({ id }) {
                 src={service.image}
                 alt={service.title}
                 fill
+                loading="eager"
                 sizes="(max-width: 1024px) 100vw, calc(100vw - 440px)"
                 className="w-full h-full object-cover"
                 onError={(e) => {

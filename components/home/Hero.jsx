@@ -76,6 +76,7 @@ export default function Hero() {
               alt="Technician repairing a device"
               width={1200}
               height={800}
+              loading="eager"
               className="w-full h-[300px] md:h-[420px] object-cover"
               onError={(e) => (e.currentTarget.style.display = "none")}
             />

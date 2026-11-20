@@ -72,6 +72,7 @@ export default function AboutPage() {
               alt="FixMate technician at work"
               width={1200}
               height={800}
+              loading="eager"
               className="w-full h-[300px] md:h-[400px] object-cover"
             />
           </div>

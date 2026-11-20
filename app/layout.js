@@ -37,11 +37,13 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-base-200 text-base-content">
+      <body className="min-h-full flex flex-col font-sans bg-base-200 text-base-content"cz-shortcut-listen="true">
         <AuthProvider>
           {children}
           <Toaster richColors position="top-right" closeButton />
