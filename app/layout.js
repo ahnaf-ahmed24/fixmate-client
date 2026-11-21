@@ -41,7 +41,8 @@ export default function RootLayout({ children }) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        {/* App icon comes from the `app/icon.svg` file convention — Next.js
+            injects its <link rel="icon"> tag automatically. */}
       </head>
       <body className="min-h-full flex flex-col font-sans bg-base-200 text-base-content"cz-shortcut-listen="true">
         <AuthProvider>
